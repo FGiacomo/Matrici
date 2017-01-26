@@ -6,8 +6,7 @@
 package matrici;
 
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -64,7 +63,32 @@ public class Matrice {
     }
 
     public void fromFile( String filename ) {
-        // da completare
+        int x =0;
+        try{
+            FileReader fr = new FileReader(filename);
+            BufferedReader br = new BufferedReader(fr);
+            while(br.ready()) {
+            
+                String s = br.readLine();
+                // riempe TheMatrix[0]
+                String[] ss = s.split(";");
+                if (ss.length!=theMatrix[x].length) {
+                    System.out.println("ERRORE: la riga corrente non ha il giusto numero di elementi.");   
+                    continue;
+                }
+                for (int i = 0; i < theMatrix[x].length; i++) {
+                    theMatrix[x][i] = Integer.parseInt(ss[i]) ;//convertitre in un intero si usa integer.parseInt 
+                }
+                
+                
+                x++;
+            }
+            br.close();
+        }catch (FileNotFoundException ex){
+             Logger.getLogger(Matrice.class.getName()).log(Level.SEVERE, null, ex);
+         }catch (IOException ex){
+             Logger.getLogger(Matrice.class.getName()).log(Level.SEVERE, null, ex);
+      } 
     }
     
 }
